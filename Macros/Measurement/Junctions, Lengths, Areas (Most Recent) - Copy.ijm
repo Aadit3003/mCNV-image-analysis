@@ -1,6 +1,7 @@
 gray();
 measure();
 threshold();
+mexican_hat_threshold();
 measure();
 
 mCNV_area = getResult("Area", 0);
@@ -22,10 +23,10 @@ print("Length is ", length);
 print("No. of Junctions is  ",junctions);
 
 
-selectWindow("Results");
-run("Close");
-
-run("Close All");
+//selectWindow("Results");
+//run("Close");
+//
+//run("Close All");
 
 
 function gray(){
@@ -40,6 +41,15 @@ function threshold(){
     run("Auto Local Threshold",
     "method=Median radius=8 parameter_1=0 parameter_2=0 white");
 
+	// Fixes Skeleton issue, but adds spurious vessels
+    run("Watershed", "stack");
+
+}
+
+function mexican_hat_threshold(){	
+	run("Mexican Hat Filter", "radius=13");
+	run("Convert to Mask");
+	
 }
 
 function skeletonize(){
