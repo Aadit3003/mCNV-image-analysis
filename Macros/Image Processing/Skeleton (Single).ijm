@@ -1,3 +1,4 @@
+// M-1 Frangi
 run("8-bit");
 run("Gaussian Blur...", "sigma=2");
 run("Frangi Vesselness",
@@ -12,3 +13,9 @@ run("Invert LUT");
 run("Skeletonize", "stack");
 run("Invert LUT");
 
+// M-2 Mexican Hat
+run("Mexican Hat Filter", "radius=13");
+setOption("BlackBackground", false);
+run("Convert to Mask");
+run("Skeletonize");
+run("Invert LUT");

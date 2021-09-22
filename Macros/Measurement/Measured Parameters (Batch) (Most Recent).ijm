@@ -8,12 +8,14 @@ var mCNV_Areas = newArray(size);
 var vessel_Areas = newArray(size);
 var vessel_Junctions = newArray(size);
 var vessel_Lengths = newArray(size);
+var fractal_dimensions = newArray(size);
 
 
 var	m_index = 0;
 var	v_index = 0;
 var j_index = 0;
 var l_index = 0;
+var f_index = 0;
 
 processFolder(input);
 
@@ -30,13 +32,14 @@ function processFolder(input) {
 	}
 
 //	Make the Measurements Table!!
-	table_name = "Measurements_mexican_hat_frangi"
+	table_name = "Measurements_Fractal"
 	Table.create(table_name);	
 	Table.setColumn("File", list);
 	Table.setColumn("mCNV Area", mCNV_Areas);	
 	Table.setColumn("Vessel Area", vessel_Areas);
 	Table.setColumn("Vessel Junctions", vessel_Junctions);
 	Table.setColumn("Vessel Length", vessel_Lengths);
+	Table.setColumn("Fractal Dimension", fractal_dimensions);
 
 
 	Res_out = output + File.separator + table_name + ".csv"
@@ -71,9 +74,20 @@ function processFile(input, output, file) {
 	selectWindow("result");
 	run("Close");
 
-	// Measure Junctions (Mex Hat)
+	// Skeletonize
 	mex_hat();
 	skeletonize();
+
+	run("Fractal Box Count...", "box=2,3,4,6,8,12,16,32,64 black");
+	
+	fractal_dimensions[f_index] = getResult("D", 0);
+
+	selectWindow("Results");
+	run("Close");
+	selectWindow("Plot");
+	run("Close");
+	
+	// Measure Junctions
 	measureSkeleton();
 	
 	branches = getResult("# Branches", 0);
@@ -86,6 +100,7 @@ function processFile(input, output, file) {
 	v_index++;
 	j_index++;
 	l_index++;
+	f_index++;
 	
 	//	Close Windows	
 	selectWindow("Results");
@@ -103,6 +118,7 @@ function mex_hat(){
 }
 function skeletonize(){
 	run("Skeletonize");
+	run("Invert LUT");
 }
 function gray(){
 	run("8-bit");	

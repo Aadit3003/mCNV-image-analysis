@@ -29,6 +29,17 @@ function main(){
 	// Measure Junctions (Mex Hat)
 	mex_hat();
 	skeletonize();
+
+	run("Fractal Box Count...", "box=2,3,4,6,8,12,16,32,64 black");
+	
+	fractal_dimension = getResult("D", 0);
+
+	selectWindow("Results");
+	run("Close");
+	
+	selectWindow("Plot");
+	run("Close");
+	
 	measureSkeleton();
 	
 	branches = getResult("# Branches", 0);
@@ -38,9 +49,10 @@ function main(){
 
 	// Print Results
 	print("mCNV Area is ", mCNV_area);
-	print("vessel Area is ", vessel_area);
-	print("Length is ", length);
-	print("No. of Junctions is  ",junctions);
+	print("Vessel Area is ", vessel_area);
+	print("Vessel Length is ", length);
+	print("Vessel Junctions are  ",junctions);
+	print("Fractal Dimension is ", fractal_dimension);
 	
 	
 	selectWindow("Results");
@@ -58,6 +70,7 @@ function mex_hat(){
 }
 function skeletonize(){
 	run("Skeletonize");
+	run("Invert LUT");
 }
 function gray(){
 	run("8-bit");	
