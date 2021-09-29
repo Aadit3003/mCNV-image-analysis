@@ -9,6 +9,7 @@ var vessel_Areas = newArray(size);
 var vessel_Junctions = newArray(size);
 var vessel_Lengths = newArray(size);
 var fractal_dimensions = newArray(size);
+var torts = newArray(size);
 
 
 var	m_index = 0;
@@ -16,6 +17,7 @@ var	v_index = 0;
 var j_index = 0;
 var l_index = 0;
 var f_index = 0;
+var t_index = 0;
 
 processFolder(input);
 
@@ -32,7 +34,7 @@ function processFolder(input) {
 	}
 
 //	Make the Measurements Table!!
-	table_name = "Measurements_Fractal"
+	table_name = "Measurements_Tort"
 	Table.create(table_name);	
 	Table.setColumn("File", list);
 	Table.setColumn("mCNV Area", mCNV_Areas);	
@@ -40,6 +42,7 @@ function processFolder(input) {
 	Table.setColumn("Vessel Junctions", vessel_Junctions);
 	Table.setColumn("Vessel Length", vessel_Lengths);
 	Table.setColumn("Fractal Dimension", fractal_dimensions);
+	Table.setColumn("Tortuosity", torts);
 
 
 	Res_out = output + File.separator + table_name + ".csv"
@@ -95,19 +98,35 @@ function processFile(input, output, file) {
 	avg_length = getResult("Average Branch Length", 0);
 	vessel_Lengths[l_index] = branches * avg_length;
 
+	selectWindow("Results");
+	run("Close");
+	
+	Table.rename("Branch information", "Results");
+	
+	tort = 0;
+	for (i = 0; i < nResults(); i++) {
+		bl = getResult("Branch length", i);
+		ed = getResult("Euclidean distance",i);
+		tort+= (bl/ed);
+	}
+	tort/= nResults;
+
+	torts[t_index] = tort;
+
+
+	//	Close Windows	
+	selectWindow("Results");
+	run("Close");
+	run("Close All");
+
+
 	// Increment Array Indices
 	m_index++;
 	v_index++;
 	j_index++;
 	l_index++;
 	f_index++;
-	
-	//	Close Windows	
-	selectWindow("Results");
-	run("Close");
-
-	run("Close All");
-	
+	t_index++;	
 }
 
 // Image processing Functions
@@ -136,7 +155,7 @@ function threshold(){
 // Measurement Functions
 function measureSkeleton(){
 	run("Set Scale...", "distance=170 known=1 unit=mm");
-	run("Analyze Skeleton (2D/3D)", "prune=none");
+	run("Analyze Skeleton (2D/3D)", "prune=none calculate show");
 }
 
 function measure(){

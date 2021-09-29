@@ -3,7 +3,7 @@ main();
 function main(){
 
 
-	// Measure Areas (Frangi)
+	// Measure mCNV Area, Vessel Area  (Frangi)
 	run("Duplicate...", "title=copy.tif");
 	selectWindow("copy.tif");
 	
@@ -26,7 +26,7 @@ function main(){
 	selectWindow("result");
 	run("Close");
 
-	// Measure Junctions (Mex Hat)
+	// Measure Junctions, Length and Fractal Dimensions(Mex Hat)
 	mex_hat();
 	skeletonize();
 
@@ -46,6 +46,24 @@ function main(){
 	junctions = getResult("# Junctions", 0);
 	avg_length = getResult("Average Branch Length", 0);
 	length = branches * avg_length;
+	selectWindow("Results");
+	run("Close");
+	
+	Table.rename("Branch information", "Results");
+	
+	tort = 0;
+	print("Number of results is ", nResults);
+	for (i = 0; i < nResults(); i++) {
+		bl = getResult("Branch length", i);
+		ed = getResult("Euclidean distance",i);
+		tort+= (bl/ed);
+	}
+	tort/= nResults;
+
+
+	selectWindow("Results");
+	run("Close");
+	run("Close All");
 
 	// Print Results
 	print("mCNV Area is ", mCNV_area);
@@ -53,12 +71,12 @@ function main(){
 	print("Vessel Length is ", length);
 	print("Vessel Junctions are  ",junctions);
 	print("Fractal Dimension is ", fractal_dimension);
+	print("Tortuosity is ", tort);
 	
 	
-	selectWindow("Results");
-	run("Close");
+
 	
-	run("Close All");
+	
 	
 }
 
@@ -88,7 +106,7 @@ function threshold(){
 // Measurement Functions
 function measureSkeleton(){
 	run("Set Scale...", "distance=170 known=1 unit=mm");
-	run("Analyze Skeleton (2D/3D)", "prune=none");
+	run("Analyze Skeleton (2D/3D)", "prune=none calculate show");
 }
 
 function measure(){
