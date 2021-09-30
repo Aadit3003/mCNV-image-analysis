@@ -34,7 +34,7 @@ function processFolder(input) {
 	}
 
 //	Make the Measurements Table!!
-	table_name = "Measurements_Tort"
+	table_name = "Measurements_Tort_fixed"
 	Table.create(table_name);	
 	Table.setColumn("File", list);
 	Table.setColumn("mCNV Area", mCNV_Areas);	
@@ -103,13 +103,24 @@ function processFile(input, output, file) {
 	
 	Table.rename("Branch information", "Results");
 	
-	tort = 0;
+	tort = 0.00;
+	prev_tort = 0.00;
+	print("Number of branches is ", nResults);
 	for (i = 0; i < nResults(); i++) {
+		
 		bl = getResult("Branch length", i);
 		ed = getResult("Euclidean distance",i);
-		tort+= (bl/ed);
+		t = bl/ed;
+		prev_tort = tort;
+		tort += (t - tort)/(i+1);
+		// Check for Over/Underflow conditions
+		if(isNaN(tort) || tort > 1000){
+			
+			print("Tort overflow detected, breaking");
+			tort = prev_tort;
+			break;	
+		}
 	}
-	tort/= nResults;
 
 	torts[t_index] = tort;
 

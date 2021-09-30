@@ -50,15 +50,26 @@ function main(){
 	run("Close");
 	
 	Table.rename("Branch information", "Results");
-	
-	tort = 0;
-	print("Number of results is ", nResults);
+
+	// Have to make tort a float or else it overflows when values exceed ~340
+	tort = 0.00;
+	prev_tort = 0.00;
+	print("Number of branches is ", nResults);
 	for (i = 0; i < nResults(); i++) {
+		
 		bl = getResult("Branch length", i);
 		ed = getResult("Euclidean distance",i);
-		tort+= (bl/ed);
+		t = bl/ed;
+		prev_tort = tort;
+		tort += (t - tort)/(i+1);
+		// Check for Over/Underflow conditions
+		if(isNaN(tort) || tort > 1000){
+			
+			print("Tort overflow detected, breaking");
+			tort = prev_tort;
+			break;	
+		}
 	}
-	tort/= nResults;
 
 
 	selectWindow("Results");

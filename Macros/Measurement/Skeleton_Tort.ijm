@@ -4,24 +4,25 @@ selectWindow("Results");
 run("Close");
 Table.rename("Branch information", "Results");
 
-tort = 0;
+tort = 0.00;
+prev_tort = 0.00;
 print("Number of results is ", nResults);
-for (i = 0; i < nResults()-30; i++) {
+for (i = 0; i < nResults(); i++) {
 	
 	bl = getResult("Branch length", i);
-//	print("BL is ",bl);
 	ed = getResult("Euclidean distance",i);
-//	print("ED is ",ed);
 	t = bl/ed;
-//	print(t);
-	tort = tort+t;
-//	print(tort);
-	// Shows Infinity after 339.9045
+	prev_tort = tort;
+	tort += (t - tort)/(i+1);
+	// Check for Over/Underflow conditions
+	if(isNaN(tort) || tort > 1000){
+		
+		print("breaking");
+		tort = prev_tort;
+		break;	
+	}
 }
-print("Sum is ", tort);
-tort = tort/nResults;
-
-print("Tortuosity is ", tort);
+print("Tort is ", tort);
 
 //run("Close All");
 //selectWindow("Results");
