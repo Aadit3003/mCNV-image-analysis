@@ -3,7 +3,7 @@
 #@ String (label = "File suffix", value = ".tif") suffix
 
 
-var size = 10;
+var size = 26;
 var mCNV_Areas = newArray(size);
 var vessel_Areas = newArray(size);
 var vessel_Junctions = newArray(size);
@@ -34,7 +34,7 @@ function processFolder(input) {
 	}
 
 //	Make the Measurements Table!!
-	table_name = "Measurements_Tort_fixed"
+	table_name = "measurements"
 	Table.create(table_name);	
 	Table.setColumn("File", list);
 	Table.setColumn("mCNV Area", mCNV_Areas);	
