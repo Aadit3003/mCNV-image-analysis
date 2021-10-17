@@ -3,7 +3,7 @@
 #@ String (label = "File suffix", value = ".tif") suffix
 
 
-var size = 26;
+var size = 3;
 var mCNV_Areas = newArray(size);
 var vessel_Areas = newArray(size);
 var vessel_Junctions = newArray(size);
