@@ -92,15 +92,15 @@ function processFile(input, t_output, s_output, file) {
 	// Close Windows
 	selectWindow("Results");
 	run("Close");
-//	selectWindow("copy.tif");
-//	run("Close");
+	selectWindow("copy.tif");
+	run("Close");
 	selectWindow("result");
 	run("Close");
 
 	// Skeletonize
 	mex_hat();
 	gray();
-	skeletonize();
+	skeletonize(s_output, file);
 
 	run("Fractal Box Count...", "box=2,3,4,6,8,12,16,32,64 black");
 	
@@ -112,7 +112,7 @@ function processFile(input, t_output, s_output, file) {
 	run("Close");
 	
 	// Measure Junctions
-	measureSkeleton();
+	measureSkeleton(s_output, file);
 	
 	branches = getResult("# Branches", 0);
 	vessel_Junctions[j_index] = getResult("# Junctions", 0);
@@ -169,10 +169,11 @@ function mex_hat(){
 	setOption("BlackBackground", false);
 	run("Convert to Mask");
 }
-function skeletonize(){
+function skeletonize(s_output, file){
 	run("Skeletonize");
 	run("Invert LUT");
 	// SAVE
+    saveStage(s_output, file, "4_Skeleton_");
 }
 function gray(){
 	run("8-bit");	
@@ -180,39 +181,50 @@ function gray(){
 function threshold(s_output, file){
 	run("Gaussian Blur...", "sigma="+gaussian_sigma);
 	// SAVE
-	name_gauss = saveStage(s_output, file, "1_Gaussian_Blur_");
+	saveStage(s_output, file, "1_Gaussian_");
 	
 	run("Frangi Vesselness",
     "dogauss=true spacingstring=[1, 1] scalestring=[3, 5]");
     // SAVE
-// 	name_frangi = saveStage(s_output, file, "2_Frangi_Vesselness_");
+ 	saveStage(s_output, file, "2_Frangi_");
     
     
-//    selectWindow(name_frangi);
 	selectWindow("Results");
     run("8-bit");
     run("Auto Local Threshold",
     "method=Median radius="+auto_local_threshold_radius+" parameter_1=0 parameter_2=0 white");
     // SAVE
-}
-
-function saveStage(output, file, name_string){
-	if (checkbox) {
-	saveAs("Tiff", output + File.separator + name_string + file );
-	}
-	new_name = name_string + file;
-	return new_name;
+    saveStage(s_output, file, "3_Threshold_");
 }
 
 // Measurement Functions
-function measureSkeleton(){
+function measureSkeleton(s_output, file){
 	run("Set Scale...", "distance="+scale_pixels_per_1_mm+" known=1 unit=mm");
 	run("Analyze Skeleton (2D/3D)", "prune=none calculate show");
 	// SAVE
+
+	selectWindow("Tagged skeleton");
+    saveStage(s_output, file, "5_Analyze_Skeleton_"); // Tagged Skeleton
 }
 
 function measure(){
 	run("Set Scale...", "distance="+scale_pixels_per_1_mm+" known=1 unit=mm");
 	run("Measure");
+}
+
+// Function to Save Intermediate Stages
+function saveStage(output, file, name_string){
+	if (checkbox) {
+		
+	run("Duplicate...", "title=copy.tif");
+	selectWindow("copy.tif");
+	
+	saveAs("Tiff", output + File.separator + name_string + file);
+
+	
+	new_name = name_string + file;
+	selectWindow(new_name);
+	run("Close");
+	}
 }
 
