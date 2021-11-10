@@ -1,5 +1,6 @@
 #@ File (label = "Input directory", style = "directory") input
-#@ File (label = "Output directory", style = "directory") output
+#@ File (label = "Results Output directory", style = "directory") table_output
+#@ File (label = "Pipeline Stages directory", style = "directory") stage_output
 #@ String (label = "File suffix", value = ".tif") suffix
 
 // Customizable Parameters
@@ -8,7 +9,7 @@
 #@ int (label = "Mexican Hat Filter Radius") mexican_hat_filter_radius
 #@ int (label = "Number of Pixels per 1 mm") scale_pixels_per_1_mm
 #@ int (label = "Auto Local Threshold Radius") auto_local_threshold_radius
-#@ boolean (label = "Save Pipeline Stages?") checkbox;
+#@ boolean (label = "Save Pipeline Stages?") checkbox
 
 var size = number_of_images;
 var mCNV_Areas = newArray(size);
@@ -44,7 +45,7 @@ function processFolder(input) {
 		if(File.isDirectory(input + File.separator + list[i]))
 			processFolder(input + File.separator + list[i]);
 		if(endsWith(list[i], suffix))
-			processFile(input, output, list[i]);
+			processFile(input, table_output, stage_output, list[i]);
 	}
 
 //	Make the Measurements Table!!
@@ -63,13 +64,13 @@ function processFolder(input) {
 	Table.setColumn("Vessel Dimaeter", vessel_diameters);
 
 
-	Res_out = output + File.separator + table_name + ".csv"
+	Res_out = table_output + File.separator + table_name + ".csv"
 	saveAs(table_name, Res_out);
 	
 }
 
 
-function processFile(input, output, file) {
+function processFile(input, t_output, s_output, file) {
 
 	open(input + File.separator + file);
 	
@@ -80,7 +81,7 @@ function processFile(input, output, file) {
 	run("Set Measurements...", "area redirect=None decimal=3");
 	gray();
 	measure();
-	threshold(output, file);
+	threshold(s_output, file);
 	run("Set Measurements...", "area limit redirect=None decimal=3");
 	measure();
 	
@@ -91,13 +92,14 @@ function processFile(input, output, file) {
 	// Close Windows
 	selectWindow("Results");
 	run("Close");
-	selectWindow("copy.tif");
-	run("Close");
+//	selectWindow("copy.tif");
+//	run("Close");
 	selectWindow("result");
 	run("Close");
 
 	// Skeletonize
 	mex_hat();
+	gray();
 	skeletonize();
 
 	run("Fractal Box Count...", "box=2,3,4,6,8,12,16,32,64 black");
@@ -175,15 +177,19 @@ function skeletonize(){
 function gray(){
 	run("8-bit");	
 }
-function threshold(output, file){
+function threshold(s_output, file){
 	run("Gaussian Blur...", "sigma="+gaussian_sigma);
 	// SAVE
-//	saveStage(output, file, "_1_Gaussian_Blur");
+	name_gauss = saveStage(s_output, file, "1_Gaussian_Blur_");
 	
 	run("Frangi Vesselness",
     "dogauss=true spacingstring=[1, 1] scalestring=[3, 5]");
     // SAVE
-    selectWindow("result");
+// 	name_frangi = saveStage(s_output, file, "2_Frangi_Vesselness_");
+    
+    
+//    selectWindow(name_frangi);
+	selectWindow("Results");
     run("8-bit");
     run("Auto Local Threshold",
     "method=Median radius="+auto_local_threshold_radius+" parameter_1=0 parameter_2=0 white");
@@ -191,8 +197,11 @@ function threshold(output, file){
 }
 
 function saveStage(output, file, name_string){
-	
-	saveAs("Tiff", output + File.separator + file + name_string);
+	if (checkbox) {
+	saveAs("Tiff", output + File.separator + name_string + file );
+	}
+	new_name = name_string + file;
+	return new_name;
 }
 
 // Measurement Functions
