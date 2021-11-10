@@ -1,0 +1,238 @@
+/* Layout */
+
+html,
+body {
+  height: 100%;
+}
+
+.arxiv-vanity-wrapper {
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+}
+@media (min-width: 1080px) {
+  .arxiv-vanity-wrapper {
+    font-size: 18px;
+  }
+}
+
+.arxiv-vanity-wrapper a,
+.arxiv-vanity-wrapper a:hover {
+  color: #7c7ec1;
+}
+
+.arxiv-vanity-wrapper a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.arxiv-vanity-wrapper a.image-link {
+  border-bottom: none;
+}
+
+/* Forms */
+
+.arxiv-vanity-wrapper form,
+.arxiv-vanity-wrapper .btn,
+.arxiv-vanity-wrapper .modal,
+.arxiv-vanity-wrapper .pagination {
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+}
+
+.arxiv-vanity-wrapper .btn-primary,
+.arxiv-vanity-wrapper .btn-primary:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+}
+
+/* Components */
+
+.arxiv-vanity-wrapper .navbar {
+  padding: 1em;
+  border-bottom: 1px solid #666;
+}
+
+.arxiv-vanity-wrapper .navbar-brand {
+  white-space: inherit;
+}
+
+.badge {
+  padding: 0.4rem 0.5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: normal;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+}
+
+.arxiv-vanity-wrapper footer {
+  /* font-size: 12px; */
+  /* color: rgba(0, 0, 0, 0.5); */
+  padding-top: 26px;
+  padding-bottom: 60px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .arxiv-vanity-wrapper footer {
+    font-size: 14px;
+  }
+
+  .arxiv-vanity-wrapper footer.fixed {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 26px;
+  }
+}
+
+.arxiv-vanity-wrapper footer span {
+  margin-right: 0.5em;
+}
+
+.paper-list {
+  font-family: Georgia, serif;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.paper-list h1,
+.paper-list h2,
+.paper-list h3 {
+  font-family: Baskerville, Georgia, serif;
+}
+
+.paper-list > .row {
+  margin-bottom: 4rem;
+}
+
+.paper-list-item {
+  margin-bottom: 2rem;
+}
+.paper-list-item img {
+  width: 100%;
+  margin-top: 2rem;
+}
+.paper-list-item h3 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+@media (min-width: 768px) {
+  .paper-list-item h3 {
+    font-size: 1.75rem;
+  }
+}
+
+.paper-list-item h3 a,
+.paper-list-item h3 a:hover {
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: normal;
+  border-bottom: none;
+}
+
+.paper-list-item .abstract,
+.paper-list-item .abstract a {
+  color: rgba(0, 0, 0, 0.8);
+}
+.paper-list-item .author {
+  font-size: 0.8em;
+  color: rgba(0, 0, 0, 0.5);
+}
+.paper-list-item.abstract a {
+  text-decoration: underline;
+}
+
+.paper-detail-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 2em;
+  padding-bottom: 160px;
+  font-size: 26px;
+  text-align: center;
+}
+
+.paper-detail-status-inner {
+  max-width: 800px;
+}
+
+.urls-example-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 10px;
+  font-size: smaller;
+}
+
+.page-container {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.arxiv-vanity-wrapper nav {
+  border-bottom: 1px solid #666;
+  padding: 1rem;
+}
+
+.arxiv-vanity-wrapper nav p {
+  padding-top: 0.3rem;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .arxiv-vanity-wrapper nav {
+    display: flex;
+    align-items: start;
+  }
+
+  .arxiv-vanity-wrapper nav p {
+    flex: 1;
+    margin: 0;
+    margin-right: 1em;
+  }
+}
+
+.page-home-inner {
+  margin: 2em;
+  margin-top: 6em;
+}
+
+.page-home .tagline {
+  font-size: 1.2rem;
+}
+.page-home input {
+  font-weight: 300;
+}
+.page-home input:focus {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.page-home .bookmarklet {
+  margin-top: 5rem;
+}
+
+@media (min-width: 768px) {
+  .page-home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 2em;
+    padding-bottom: 160px;
+  }
+
+  .page-home-inner {
+    max-width: 800px;
+  }
+  .page-home .tagline {
+    font-size: 2rem;
+  }
+}
+
+.arxiv-vanity-wrapper .mailing-list-form {
+  text-align: center;
+  margin: 6em 0 2em 0;
+}
