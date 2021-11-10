@@ -11,28 +11,20 @@
 #@ int (label = "Auto Local Threshold Radius") auto_local_threshold_radius
 #@ boolean (label = "Save Pipeline Stages?") checkbox
 
+// Arrays for Measurement
 var size = number_of_images;
+
 var mCNV_Areas = newArray(size);
 var vessel_Areas = newArray(size);
 var vessel_Junctions = newArray(size);
 var vessel_Lengths = newArray(size);
 var fractal_dimensions = newArray(size);
 var torts = newArray(size);
-
 var vessel_densities = newArray(size);
 var junction_densities = newArray(size);
 var vessel_diameters = newArray(size);
 
-var	m_index = 0;
-var	v_index = 0;
-var j_index = 0;
-var l_index = 0;
-var f_index = 0;
-var t_index = 0;
-
-var vdn_index = 0;
-var jd_index = 0;
-var vdm_index = 0;
+var index = 0;
 
 processFolder(input);
 
@@ -85,9 +77,9 @@ function processFile(input, t_output, s_output, file) {
 	run("Set Measurements...", "area limit redirect=None decimal=3");
 	measure();
 	
-	mCNV_Areas[m_index] = getResult("Area", 0);
-	vessel_Areas[v_index] = getResult("Area", 1);
-	vessel_densities[vdn_index] = vessel_Areas[v_index] / mCNV_Areas[m_index];
+	mCNV_Areas[index] = getResult("Area", 0);
+	vessel_Areas[index] = getResult("Area", 1);
+	vessel_densities[index] = vessel_Areas[index] / mCNV_Areas[index];
 
 	// Close Windows
 	selectWindow("Results");
@@ -104,7 +96,7 @@ function processFile(input, t_output, s_output, file) {
 
 	run("Fractal Box Count...", "box=2,3,4,6,8,12,16,32,64 black");
 	
-	fractal_dimensions[f_index] = getResult("D", 0);
+	fractal_dimensions[index] = getResult("D", 0);
 
 	selectWindow("Results");
 	run("Close");
@@ -115,12 +107,12 @@ function processFile(input, t_output, s_output, file) {
 	measureSkeleton(s_output, file);
 	
 	branches = getResult("# Branches", 0);
-	vessel_Junctions[j_index] = getResult("# Junctions", 0);
+	vessel_Junctions[index] = getResult("# Junctions", 0);
 	avg_length = getResult("Average Branch Length", 0);
-	vessel_Lengths[l_index] = branches * avg_length;
+	vessel_Lengths[index] = branches * avg_length;
 
-	junction_densities[jd_index] = vessel_Junctions[j_index] / vessel_Lengths[l_index];
-	vessel_diameters[vdm_index] = 1000*(vessel_Areas[v_index] / vessel_Lengths[l_index]);
+	junction_densities[index] = vessel_Junctions[index] / vessel_Lengths[index];
+	vessel_diameters[index] = 1000*(vessel_Areas[index] / vessel_Lengths[index]);
 
 	selectWindow("Results");
 	run("Close");
@@ -143,7 +135,7 @@ function processFile(input, t_output, s_output, file) {
 		}
 	}
 
-	torts[t_index] = tort;
+	torts[index] = tort;
 
 	//	Close Windows	
 	selectWindow("Results");
@@ -151,16 +143,7 @@ function processFile(input, t_output, s_output, file) {
 	run("Close All");
 
 	// Increment Array Indices
-	m_index++;
-	v_index++;
-	j_index++;
-	l_index++;
-	f_index++;
-	t_index++;
-	
-	vdn_index++;
-	jd_index++;
-	vdm_index++;
+	index++;
 }
 
 // Image processing Functions
