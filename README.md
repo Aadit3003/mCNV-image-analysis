@@ -10,7 +10,7 @@ This ImageJ macro allows users to automate the processing of OCTA images of reti
 
 ## Installation and Use
 
-The latest stable version is uploaded to Zenodo at <Insert Site Here>. Once you download the zip file, simply drag the .ijm file onto the Fiji icon. With the mCNV image open, enter the desired parameters and select the input and output directories to save the results. If you wish to save images of the intermediate processing steps, check the "Save Pipeline Stages" option.
+The latest stable version is uploaded to Zenodo. Once you download the zip file, simply drag the .ijm file onto the Fiji icon. With the mCNV image open, enter the desired parameters and select the input and output directories to save the results. If you wish to save images of the intermediate processing steps, check the "Save Pipeline Stages" option.
 
 <img src="https://github.com/Aadit3003/mCNV-image-analysis/blob/d31b473560b7ad7c3ae6335809bdb7dc3e1ecea6/Assets/User%20Interface.png"><br/>
 
