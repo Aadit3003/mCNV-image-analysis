@@ -1,4 +1,7 @@
-# An ImageJ macro for Quantitative Analysis of OCTA images.
+# An ImageJ macro tool for OCTA-based Quantitative Analysis of retinal mCNV
+
+## Brief Description
+An ImageJ macro that allows users to automate the batch processing of retinal OCTA images of mCNV and measure nine biomarkers to characterize the lesion and vascular activity.
 
 ## Description
 This ImageJ macro allows users to automate the processing of OCTA images of retinae with mCNV. The macro's image processing pipeline uses Gaussian blur filter, Frangi Vesselness filter, Local Median thresholding and the Mexican Hat filter. The macro allows users to adjust the input parameters, number of images, and the scale. Users can then measure nine biomarkers including mCNV area, vessel area, vessel density, vessel diameter, vessel junctions, junction density, fractal dimension and vessel tortuosity.
@@ -13,7 +16,6 @@ The latest stable version is uploaded to Zenodo at <Insert Site Here>. Once you 
 
 ## Documentation, links and ressources
 
-<!-- -   Ask questions on the [pendent drop topic page of the ImageJ forum](http://forum.imagej.net/t/pendent-drop-plugin-how-to-use/290) -->
-<!-- -   To cite this software, please use the following reference: A. Daerr and A. Mogne, *Pendent\_Drop: An ImageJ Plugin to Measure the Surface Tension from an Image of a Pendent Drop*. Journal of Open Research Software, 4: e3 (2016), [DOI: 10.5334/jors.97](http://dx.doi.org/10.5334/jors.97) -->
--   [source code on github](https://github.com/Aadit3003/mCNV-image-analysis)
--   [PDF document descripting the underlying mCNV analysis techniques and macro in more detail]()
+-   To cite this software, please use the following reference: A. Deshpande and S. Raman, *An ImageJ macro tool for OCTA-based Quantitative Analysis of Myopic Choroidal Neovascularization. 2022*.
+-   [Source code on github](https://github.com/Aadit3003/mCNV-image-analysis)
+-   [PDF document descripting the underlying mCNV analysis techniques and macro in more detail](https://github.com/Aadit3003/mCNV-image-analysis/blob/0dafcff169b43301d65657085f3afdbb88de13e8/Assets/Manuscript.pdf)
