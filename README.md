@@ -3,6 +3,10 @@
 
 This plug-in allows for interactive or automated adjustment of a profile to an image of a pendent drop. The plugin reports the capillary length providing the best fit, as well as surface tension, volume and surface associated with this profile.
 
+<img src="https://github.com/Aadit3003/mCNV-image-analysis/blob/d31b473560b7ad7c3ae6335809bdb7dc3e1ecea6/Assets/User%20Interface.png"><br/>
+<img src="https://github.com/Aadit3003/mCNV-image-analysis/blob/d31b473560b7ad7c3ae6335809bdb7dc3e1ecea6/Assets/1_Fig%201%20What.png" width = "800"><br/>
+
+
 ## Description
 
 The pendent drop method is commonly used to measure surface tensions of liquids. It consists in analysing the shape of a drop hanging typically from a capillary tube and about to detach (sometimes the inverse situation of a bubble forming at the bottom of a liquid is preferred, or that of a sessile drop or bubble). The shape is very sensitive to the unknown interfacial tension. The (axisymmetric) drop profile is described by only one non-dimensional parameter (tip radius over capillary length), although in practice five dimensional parameters can be adjusted within this plug-in: tip position and curvature, tilt of symetry axis and capillary length. The surface tension is calculated from the latter if the density difference is given.
