@@ -1,4 +1,5 @@
 # An ImageJ macro tool for OCTA-based Quantitative Analysis of retinal mCNV
+This project was done under the guidance of Dr Sundaresan Raman, BITS Pilani, as a study oriented project CS F266.
 
 ## Brief Description
 An ImageJ macro that allows users to automate the batch processing of retinal OCTA images of mCNV and measure nine biomarkers to characterize the lesion and vascular activity.
