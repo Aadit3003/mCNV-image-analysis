@@ -19,4 +19,3 @@ The latest stable version is uploaded to Zenodo. Once you download the zip file,
 
 -   To cite this software, please use the following reference: A. Deshpande and S. Raman, *An ImageJ macro tool for OCTA-based Quantitative Analysis of Myopic Choroidal Neovascularization. 2022*.
 -   [Source code on github](https://github.com/Aadit3003/mCNV-image-analysis)
--   [PDF document descripting the underlying mCNV analysis techniques and macro in more detail](https://github.com/Aadit3003/mCNV-image-analysis/blob/0dafcff169b43301d65657085f3afdbb88de13e8/Assets/Manuscript.pdf)
